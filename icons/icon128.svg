@@ -1,0 +1,25 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" rx="20" fill="#10a37f"/>
+  
+  <!-- Main folder -->
+  <path d="M26 44C26 37.3726 31.3726 32 38 32H51.6863C53.8829 32 55.9913 32.8429 57.5621 34.3431L64.4379 40.8569C66.0087 42.3571 68.1171 43.2 70.3137 43.2H90C96.6274 43.2 102 48.5726 102 55.2V84C102 90.6274 96.6274 96 90 96H38C31.3726 96 26 90.6274 26 84V44Z" fill="white"/>
+  
+  <!-- Notification badge -->
+  <circle cx="88" cy="24" r="16" fill="#ef4444"/>
+  <rect x="80" y="18" width="16" height="12" rx="3" fill="white"/>
+  <rect x="84" y="22" width="8" height="4" fill="#ef4444"/>
+  
+  <!-- Organization lines inside folder -->
+  <g opacity="0.8">
+    <path d="M40 58H75" stroke="#10a37f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M40 66H68" stroke="#10a37f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M40 74H80" stroke="#10a37f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M40 82H65" stroke="#10a37f" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Small folder icons to represent organization -->
+  <g opacity="0.6">
+    <path d="M78 60C78 59.4477 78.4477 59 79 59H81.5858C81.8519 59 82.1065 59.1054 82.2929 59.2929L83.2071 60.2071C83.3936 60.3946 83.6481 60.5 83.9142 60.5H86C86.5523 60.5 87 60.9477 87 61.5V65C87 65.5523 86.5523 66 86 66H79C78.4477 66 78 65.5523 78 65V60Z" fill="#10a37f"/>
+    <path d="M78 68C78 67.4477 78.4477 67 79 67H81.5858C81.8519 67 82.1065 67.1054 82.2929 67.2929L83.2071 68.2071C83.3936 68.3946 83.6481 68.5 83.9142 68.5H86C86.5523 68.5 87 68.9477 87 69.5V73C87 73.5523 86.5523 74 86 74H79C78.4477 74 78 73.5523 78 73V68Z" fill="#10a37f"/>
+  </g>
+</svg>

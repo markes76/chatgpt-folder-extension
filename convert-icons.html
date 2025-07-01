@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Icon Converter</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .icon-preview { margin: 20px 0; }
+        .icon-preview img { margin-right: 10px; }
+        canvas { border: 1px solid #ccc; margin: 5px; }
+        .download-link { display: inline-block; margin: 5px; padding: 5px 10px; background: #007cba; color: white; text-decoration: none; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Chrome Extension Icon Converter</h1>
+    <p>This page converts the SVG icons to PNG format for your Chrome extension.</p>
+    
+    <div class="icon-preview">
+        <h3>16x16 Icon:</h3>
+        <canvas id="canvas16" width="16" height="16"></canvas>
+        <a id="download16" class="download-link">Download PNG</a>
+    </div>
+    
+    <div class="icon-preview">
+        <h3>48x48 Icon:</h3>
+        <canvas id="canvas48" width="48" height="48"></canvas>
+        <a id="download48" class="download-link">Download PNG</a>
+    </div>
+    
+    <div class="icon-preview">
+        <h3>128x128 Icon:</h3>
+        <canvas id="canvas128" width="128" height="128"></canvas>
+        <a id="download128" class="download-link">Download PNG</a>
+    </div>
+
+    <script>
+        function convertSVGtoPNG(svgContent, canvas, downloadLink, filename) {
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                // Create download link
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    downloadLink.href = url;
+                    downloadLink.download = filename;
+                });
+            };
+            
+            const svgBlob = new Blob([svgContent], {type: 'image/svg+xml'});
+            const url = URL.createObjectURL(svgBlob);
+            img.src = url;
+        }
+
+        // SVG content for each icon
+        const svg16 = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="16" height="16" rx="3" fill="#10a37f"/>
+  <path d="M3 5.5C3 4.67157 3.67157 4 4.5 4H6.08579C6.35167 4 6.60649 4.10536 6.79289 4.29289L7.70711 5.20711C7.89351 5.39464 8.14833 5.5 8.41421 5.5H11.5C12.3284 5.5 13 6.17157 13 7V10.5C13 11.3284 12.3284 12 11.5 12H4.5C3.67157 12 3 11.3284 3 10.5V5.5Z" fill="white"/>
+  <circle cx="11" cy="3" r="2" fill="#ef4444"/>
+  <path d="M10.2 2.4H11.8V3.6H10.2V2.4Z" fill="white" stroke="white" stroke-width="0.2"/>
+  <path d="M10.6 2.8H11.4V3.2H10.6V2.8Z" fill="#ef4444"/>
+</svg>`;
+
+        const svg48 = `<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="48" height="48" rx="8" fill="#10a37f"/>
+  <path d="M10 16.5C10 14.0147 12.0147 12 14.5 12H19.2574C20.0832 12 20.8759 12.3161 21.4749 12.8787L24.1213 15.3787C24.7203 15.9413 25.513 16.2574 26.3388 16.2574H33.5C35.9853 16.2574 38 18.2721 38 20.7574V31.5C38 33.9853 35.9853 36 33.5 36H14.5C12.0147 36 10 33.9853 10 31.5V16.5Z" fill="white"/>
+  <circle cx="33" cy="9" r="6" fill="#ef4444"/>
+  <rect x="30" y="7" width="6" height="4" rx="1" fill="white"/>
+  <rect x="31.5" y="8.5" width="3" height="1" fill="#ef4444"/>
+  <path d="M15 22H28" stroke="#10a37f" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M15 25H25" stroke="#10a37f" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M15 28H30" stroke="#10a37f" stroke-width="1.5" stroke-linecap="round"/>
+</svg>`;
+
+        const svg128 = `<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" rx="20" fill="#10a37f"/>
+  <path d="M26 44C26 37.3726 31.3726 32 38 32H51.6863C53.8829 32 55.9913 32.8429 57.5621 34.3431L64.4379 40.8569C66.0087 42.3571 68.1171 43.2 70.3137 43.2H90C96.6274 43.2 102 48.5726 102 55.2V84C102 90.6274 96.6274 96 90 96H38C31.3726 96 26 90.6274 26 84V44Z" fill="white"/>
+  <circle cx="88" cy="24" r="16" fill="#ef4444"/>
+  <rect x="80" y="18" width="16" height="12" rx="3" fill="white"/>
+  <rect x="84" y="22" width="8" height="4" fill="#ef4444"/>
+  <g opacity="0.8">
+    <path d="M40 58H75" stroke="#10a37f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M40 66H68" stroke="#10a37f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M40 74H80" stroke="#10a37f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M40 82H65" stroke="#10a37f" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g opacity="0.6">
+    <path d="M78 60C78 59.4477 78.4477 59 79 59H81.5858C81.8519 59 82.1065 59.1054 82.2929 59.2929L83.2071 60.2071C83.3936 60.3946 83.6481 60.5 83.9142 60.5H86C86.5523 60.5 87 60.9477 87 61.5V65C87 65.5523 86.5523 66 86 66H79C78.4477 66 78 65.5523 78 65V60Z" fill="#10a37f"/>
+    <path d="M78 68C78 67.4477 78.4477 67 79 67H81.5858C81.8519 67 82.1065 67.1054 82.2929 67.2929L83.2071 68.2071C83.3936 68.3946 83.6481 68.5 83.9142 68.5H86C86.5523 68.5 87 68.9477 87 69.5V73C87 73.5523 86.5523 74 86 74H79C78.4477 74 78 73.5523 78 73V68Z" fill="#10a37f"/>
+  </g>
+</svg>`;
+
+        // Convert all icons
+        convertSVGtoPNG(svg16, document.getElementById('canvas16'), document.getElementById('download16'), 'icon16.png');
+        convertSVGtoPNG(svg48, document.getElementById('canvas48'), document.getElementById('download48'), 'icon48.png');
+        convertSVGtoPNG(svg128, document.getElementById('canvas128'), document.getElementById('download128'), 'icon128.png');
+    </script>
+</body>
+</html>
