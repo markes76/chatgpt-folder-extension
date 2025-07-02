@@ -346,7 +346,7 @@ class ChatGPTFolderOrganizer {
       <span class="folder-icon">${icon}</span>
       <span class="folder-name">${name}</span>
       <span class="folder-count">(${count})</span>
-      ${folderId !== 'all' && folderId !== 'unorganized' ? '<button class="delete-btn">×</button>' : ''}
+      ${folderId !== 'all' && folderId !== 'unorganized' ? '<button class="rename-btn" title="Rename">✎</button><button class="delete-btn">×</button>' : ''}
     `;
 
     div.addEventListener('click', (e) => {
@@ -359,6 +359,11 @@ class ChatGPTFolderOrganizer {
       div.querySelector('.delete-btn').addEventListener('click', (e) => {
         e.stopPropagation();
         this.deleteFolder(folderId);
+      });
+
+      div.querySelector('.rename-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.renameFolder(folderId);
       });
     }
 
@@ -448,8 +453,21 @@ class ChatGPTFolderOrganizer {
           conv.folderId = 'unorganized';
         }
       });
-      
+
       this.folders.delete(folderId);
+      this.saveData();
+      this.renderFolders();
+    }
+  }
+
+  renameFolder(folderId) {
+    const currentName = this.folders.get(folderId)?.name || '';
+    const newName = prompt('Enter new folder name:', currentName);
+    if (newName && newName.trim() && newName.trim() !== currentName) {
+      this.folders.set(folderId, {
+        ...this.folders.get(folderId),
+        name: newName.trim()
+      });
       this.saveData();
       this.renderFolders();
     }
