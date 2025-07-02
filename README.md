@@ -28,6 +28,11 @@ A Chrome extension that adds folder organization to ChatGPT's conversation histo
 2. Enter a name for your new folder
 3. The folder will appear in your folder list
 
+### Renaming Folders
+1. Click the **✎** button next to a folder name
+2. Enter a new name when prompted
+3. The folder list will update with the new name
+
 ### Organizing Conversations
 1. Click "Organize Conversations" to enter organize mode
 2. Click on conversations you want to move (they'll be highlighted)

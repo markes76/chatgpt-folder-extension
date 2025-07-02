@@ -255,12 +255,37 @@
   transition: opacity 0.2s;
 }
 
+.rename-btn {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  font-size: 14px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  margin-right: 4px;
+}
+
 .folder-item:hover .delete-btn {
+  opacity: 1;
+}
+
+.folder-item:hover .rename-btn {
   opacity: 1;
 }
 
 .delete-btn:hover {
   background: rgba(239, 68, 68, 0.1);
+}
+
+.rename-btn:hover {
+  background: rgba(59, 130, 246, 0.1);
 }
 
 /* Panel actions */
