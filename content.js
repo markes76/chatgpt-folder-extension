@@ -143,13 +143,43 @@ class ChatGPTFolderOrganizer {
     this.isPinned = pinned;
     
     if (pinned) {
-      // Pinned mode - bottom left, ChatGPT styling
-      panel.className = 'folder-panel pinned';
-      panel.style.position = 'fixed';
-      panel.style.bottom = '20px';
-      panel.style.left = '20px';
-      panel.style.top = 'auto';
-      panel.style.right = 'auto';
+      // Pinned mode - integrate into the sticky header section
+      const stickyHeader = document.querySelector('aside.tall\\:sticky');
+      if (stickyHeader) {
+        // Insert at the end of the sticky header section
+        panel.className = 'folder-panel pinned sticky-header-integrated';
+        stickyHeader.appendChild(panel);
+        
+        // Reset positioning for sticky header integration
+        panel.style.position = 'static';
+        panel.style.bottom = 'auto';
+        panel.style.left = 'auto';
+        panel.style.top = 'auto';
+        panel.style.right = 'auto';
+      } else {
+        // Fallback: try to find by data-testid for Library
+        const libraryLink = document.querySelector('[data-testid="sidebar-item-library"]');
+        if (libraryLink && libraryLink.parentNode) {
+          panel.className = 'folder-panel pinned sticky-header-integrated';
+          libraryLink.parentNode.appendChild(panel);
+          
+          // Reset positioning for sidebar integration
+          panel.style.position = 'static';
+          panel.style.bottom = 'auto';
+          panel.style.left = 'auto';
+          panel.style.top = 'auto';
+          panel.style.right = 'auto';
+        } else {
+          // Final fallback to fixed positioning
+          panel.className = 'folder-panel pinned';
+          panel.style.position = 'fixed';
+          panel.style.top = '20px';
+          panel.style.left = '20px';
+          panel.style.bottom = 'auto';
+          panel.style.right = 'auto';
+          document.body.appendChild(panel);
+        }
+      }
       
       // Update pin button
       document.getElementById('pinToggle').innerHTML = '📌';
@@ -164,9 +194,12 @@ class ChatGPTFolderOrganizer {
       panel.style.bottom = 'auto';
       panel.style.right = 'auto';
       
+      // Ensure it's in document body for floating
+      document.body.appendChild(panel);
+      
       // Update pin button
       document.getElementById('pinToggle').innerHTML = '📍';
-      document.getElementById('pinToggle').title = 'Pin to corner';
+      document.getElementById('pinToggle').title = 'Pin to sidebar';
     }
     
     this.savePanelState();
